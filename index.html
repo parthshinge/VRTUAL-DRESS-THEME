@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Virtual Dress – AI Try On</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+         :root {
+            /* Professional Fashion Palette */
+            --primary: #111827;
+            /* charcoal black */
+            --secondary: #6b7280;
+            /* neutral gray */
+            --accent: #c9a24d;
+            /* luxury gold */
+            --surface: #ffffff;
+            /* clean white */
+        }
+        
+        body {
+            background: linear-gradient(180deg, #f9fafb, #f3f4f6);
+        }
+        
+        .glass {
+            background: var(--surface);
+            backdrop-filter: none;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+        }
+        
+        .neon {
+            box-shadow: none;
+        }
+        /* removed glow ring for clean professional look */
+        
+        .glow-ring {
+            display: none;
+        }
+        /* spin animation disabled */
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0)
+            }
+            50% {
+                transform: translateY(-6px)
+            }
+            100% {
+                transform: translateY(0)
+            }
+        }
+        
+        .float {
+            animation: float 4s ease-in-out infinite
+        }
+    </style>
+</head>
+
+<body class="text-gray-900 min-h-screen">
+
+    <!-- NAVBAR -->
+    <nav class="flex justify-between items-center px-8 py-6">
+        <div class="flex items-center gap-3">
+            <img src="img/Techspot Infotech Logo.jpg" alt="TechSpot Infotech Logo" class="h-10 w-10 object-contain" />
+            <h1 class="text-xl font-semibold text-gray-900">TechSpot Infotech</h1>
+        </div>
+        <div class="flex gap-6 text-sm text-gray-600">
+            <span>Home</span>
+            <span>Try On</span>
+            <span>Gallery</span>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="px-8 py-16 grid md:grid-cols-2 gap-10 items-center">
+        <div>
+            <h2 class="text-5xl font-bold leading-tight">Try Fashion<br><span class="text-[var(--accent)]">Before You Wear It</span></h2>
+            <p class="mt-4 text-gray-600 max-w-md">Experience AI-powered virtual dress fitting with realistic previews and instant results.</p>
+            <button class="mt-6 px-8 py-3 rounded-full bg-[var(--accent)] text-black font-semibold hover:opacity-90">Start Virtual Try-On</button>
+        </div>
+        <div class="glass neon rounded-2xl p-6 relative">
+            <div class="glow-ring"></div>
+            <p class="text-center text-gray-500">AI Fashion Preview Area</p>
+            <div class="h-64 mt-4 rounded-xl bg-black/40 flex items-center justify-center">Preview</div>
+        </div>
+    </section>
+
+    <!-- TRY ON SECTION -->
+    <section class="px-8 pb-20">
+        <div class="glass rounded-2xl p-8 max-w-7xl mx-auto">
+            <h3 class="text-2xl font-semibold mb-6">Virtual Try-On Studio</h3>
+            <div class="grid md:grid-cols-3 gap-6">
+
+                <!-- Upload -->
+                <div class="glass rounded-xl p-4 text-center">
+                    <p class="text-sm text-gray-600 mb-3">Upload Your Photo</p>
+                    <label class="h-40 border border-dashed border-gray-300 rounded-lg flex items-center justify-center cursor-pointer hover:bg-gray-50 transition">
+          <input type="file" id="userImage" accept="image/*" hidden />
+          <span class="text-gray-500" id="uploadText">Click to Upload</span>
+        </label>
+                    <img id="userPreview" class="hidden mt-3 rounded-lg max-h-40 mx-auto" />
+                </div>
+
+                <!-- Dress Selection -->
+                <div class="glass rounded-xl p-4">
+                    <p class="text-sm text-gray-600 mb-3">Choose Dress</p>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="h-20 rounded-lg bg-black/40 flex items-center justify-center">Ethnic</div>
+                        <div class="h-20 rounded-lg bg-black/40 flex items-center justify-center">Casual</div>
+                        <div class="h-20 rounded-lg bg-black/40 flex items-center justify-center">Formal</div>
+                        <div class="h-20 rounded-lg bg-black/40 flex items-center justify-center">Party</div>
+                    </div>
+                </div>
+
+                <!-- AI Process -->
+                <div class="glass rounded-xl p-4 relative">
+                    <p class="text-sm font-medium text-gray-700 mb-2">Additional Styling Instructions (Optional)</p>
+                    <textarea class="w-full h-24 p-3 mb-4 border border-gray-300 rounded-lg text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-[var(--accent)]" placeholder="Example: Slim-fit, pastel shade, party wear, elegant fabric, modern style..."></textarea>
+
+                    <p class="text-sm text-gray-600 mb-3">AI Processing</p>
+                    <ul class="text-sm text-gray-500 space-y-2">
+                        <li>• Body detection</li>
+                        <li>• Fabric mapping</li>
+                        <li>• Fit adjustment</li>
+                        <li>• Final rendering</li>
+                    </ul>
+                    <button id="generateBtn" class="mt-4 w-full py-2 rounded-full bg-[var(--accent)] font-semibold flex items-center justify-center gap-2">
+          <span id="btnText">Generate Look</span>
+          <svg id="loader" class="hidden animate-spin h-5 w-5 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+          </svg>
+        </button>
+                </div>
+
+
+
+            </div>
+        </div>
+    </section>
+
+    <!-- BEFORE / AFTER COMPARISON -->
+    <section class="px-8 pb-20">
+        <h3 class="text-xl font-semibold mb-6">Before & After Try-On</h3>
+        <div class="max-w-4xl mx-auto glass rounded-2xl p-6">
+            <div class="relative w-full h-80 overflow-hidden rounded-xl" id="compareBox">
+                <!-- Before Image -->
+                <img id="beforeImg" src="" alt="Before" class="absolute inset-0 w-full h-full object-contain bg-gray-100" />
+                <!-- After Image -->
+                <img id="afterImg" src="" alt="After" class="absolute inset-0 w-full h-full object-contain bg-gray-100" style="clip-path: inset(0 50% 0 0);" />
+                <!-- Slider -->
+                <input type="range" min="0" max="100" value="50" id="compareSlider" class="absolute bottom-4 left-1/2 -translate-x-1/2 w-3/4" />
+            </div>
+            <div class="flex justify-between text-sm text-gray-500 mt-3">
+                <span>Before</span>
+                <span>After</span>
+            </div>
+            <p class="mt-3 text-xs text-gray-500 text-center">
+                Drag the slider to compare your original photo with the AI-generated dress preview.
+            </p>
+        </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section class="px-8 pb-20">
+        <h3 class="text-xl font-semibold mb-6">Your Virtual Wardrobe</h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="glass h-40 rounded-xl"></div>
+            <div class="glass h-40 rounded-xl"></div>
+            <div class="glass h-40 rounded-xl"></div>
+            <div class="glass h-40 rounded-xl"></div>
+        </div>
+    </section>
+
+    <footer class="text-center text-gray-500 text-sm pb-6">AI Fashion Experience • Frontend Prototype</footer>
+
+    <script>
+        const userImage = document.getElementById('userImage');
+        const userPreview = document.getElementById('userPreview');
+        const uploadText = document.getElementById('uploadText');
+
+        userImage.addEventListener('change', () => {
+            const file = userImage.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = () => {
+                userPreview.src = reader.result;
+                userPreview.classList.remove('hidden');
+                uploadText.textContent = 'Image Loaded';
+            };
+            reader.readAsDataURL(file);
+        });
+    </script>
+</body>
+
+</html>
