@@ -47,34 +47,6 @@
             border: 1px solid #e5e7eb;
             box-shadow: 0 10px 25px rgba(0, 0, 0, .06);
         }
-        
-        @keyframes robotFloat {
-            0% {
-                transform: translateY(0)
-            }
-            50% {
-                transform: translateY(-14px)
-            }
-            100% {
-                transform: translateY(0)
-            }
-        }
-        
-        @keyframes robotPulse {
-            0% {
-                filter: drop-shadow(0 0 0 #3b82f6)
-            }
-            50% {
-                filter: drop-shadow(0 0 18px #3b82f6)
-            }
-            100% {
-                filter: drop-shadow(0 0 0 #3b82f6)
-            }
-        }
-        
-        .robot-animate {
-            animation: robotFloat 3s ease-in-out infinite, robotPulse 2.2s ease-in-out infinite;
-        }
     </style>
 </head>
 
@@ -82,14 +54,13 @@
 
     <div id="app">
 
-        <!-- HERO -->
+        <!-- ================= HERO ================= -->
         <section class="screen">
             <div class="text-center">
 
-                <!-- BRAND NAME (BIGGER) -->
                 <span class="brand-font text-3xl md:text-4xl font-semibold tracking-widest">
-            Techspot AI Pavilion
-        </span>
+Techspot AI Pavilion
+</span>
 
                 <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_tfb3estd.json" style="width:320px;height:320px" loop autoplay>
                 </lottie-player>
@@ -100,68 +71,70 @@
                 </h1>
 
                 <button onclick="goNext()" class="mt-8 px-10 py-4 bg-[var(--accent)] rounded-full font-semibold">
-            Start Virtual Try-On
-        </button>
+Start Virtual Try-On
+</button>
+
             </div>
         </section>
 
-        <!-- TRY ON -->
+        <!-- ================= TRY ON ================= -->
         <section class="screen">
-            <div class="glass w-[92%] max-w-6xl h-[80vh] rounded-2xl p-6 flex flex-col justify-between">
+            <div class="glass w-[92%] max-w-6xl h-[72vh] rounded-2xl p-5 flex flex-col">
 
-                <div class="flex justify-between">
-                    <span class="brand-font text-xl md:text-2xl font-bold tracking-widest text-gray-800">
-    Techspot AI Pavilion
+                <!-- HEADER -->
+                <div class="grid grid-cols-3 items-center mb-3">
+                    <button onclick="goBack()" class="text-sm underline justify-self-start">← Back</button>
+                    <span class="brand-font text-lg md:text-xl font-bold tracking-widest text-center">
+Techspot AI Pavilion
 </span>
-                    <button onclick="goBack()" class="underline text-sm">← Back</button>
+                    <div></div>
                 </div>
 
-                <!-- OUTPUT -->
-                <div class="flex-1 flex flex-col items-center justify-center">
+                <!-- CONTENT -->
+                <div class="flex flex-col items-center justify-center grow">
 
-                    <div id="robotThinking" class="flex flex-col items-center">
-
-                        <!-- ROBOT VIDEO (BIGGER + SOUND READY) -->
-                        <video id="robotVideo" class="w-64 md:w-72 mb-4 rounded-2xl shadow-xl" src="img/robot dance.mp4" autoplay loop muted playsinline>
-        </video>
-
-                        <p class="text-sm text-gray-500">
-                            🤖 AI is preparing your virtual look...
-                        </p>
+                    <!-- ROBOT PROCESS -->
+                    <div id="robotThinking" class="hidden flex flex-col items-center">
+                        <video id="robotVideo" class="w-56 md:w-64 mb-3 rounded-2xl shadow-lg" src="img/robot dance.mp4" loop playsinline muted>
+</video>
+                        <p class="text-sm text-gray-500">🤖 AI is preparing your virtual look...</p>
                     </div>
 
-                    <lottie-player id="loader" src="https://assets10.lottiefiles.com/packages/lf20_usmfx6bp.json" style="width:150px;height:150px" class="hidden">
+                    <!-- LOADER -->
+                    <lottie-player id="loader" src="https://assets10.lottiefiles.com/packages/lf20_usmfx6bp.json" style="width:140px;height:140px" class="hidden">
                     </lottie-player>
 
-                    <div id="output" class="hidden text-center w-full">
-                        <h3 class="brand-font mb-3">✨ Final AI Output</h3>
-                        <div class="h-56 bg-black/40 rounded-xl flex items-center justify-center text-white">
+                    <!-- FINAL OUTPUT -->
+                    <div id="output" class="hidden text-center w-full mt-2">
+                        <h3 class="brand-font mb-2">✨ Final AI Output</h3>
+                        <div class="h-52 bg-black/40 rounded-xl flex items-center justify-center text-white">
                             AI Generated Preview
                         </div>
                     </div>
+
                 </div>
 
-                <!-- INPUT BAR -->
-                <div class="bg-[#1c1c1e] p-4 rounded-2xl flex gap-3 items-center text-white relative">
+                <!-- ================= INPUT BAR ================= -->
+                <div class="bg-[#1c1c1e] p-3 rounded-2xl flex gap-3 items-center text-white relative">
 
                     <button onclick="toggleMenu()" class="text-xl">+</button>
 
-                    <div id="uploadMenu" class="hidden absolute bottom-16 left-0 bg-[#2a2a2e] rounded-xl shadow-lg w-44 overflow-hidden">
+                    <div id="uploadMenu" class="hidden absolute bottom-14 left-0 bg-[#2a2a2e] rounded-xl shadow-lg w-44 overflow-hidden">
 
                         <button onclick="openUpload()" class="w-full text-left px-4 py-3 hover:bg-[#3a3a3e]">
-            📁 Upload Image
-        </button>
+📁 Upload Image
+</button>
 
                         <button onclick="openCamera()" class="w-full text-left px-4 py-3 hover:bg-[#3a3a3e]">
-            📷 Open Camera
-        </button>
+📷 Open Camera
+</button>
                     </div>
 
                     <div id="previewWrapper" class="relative hidden">
                         <img id="preview" class="w-10 h-10 rounded-full object-cover border">
-                        <button onclick="removePreview()" class="absolute -top-2 -right-2 bg-black text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
-            ✕
-        </button>
+                        <button onclick="removePreview()" class="absolute -top-2 -right-2 bg-black text-white text-xs w-5 h-5 rounded-full">
+✕
+</button>
                     </div>
 
                     <input class="flex-1 bg-transparent outline-none text-sm" placeholder="Ask AI Virtual Try-On Studio...">
@@ -189,17 +162,28 @@
 
     <script>
         const app = document.getElementById("app");
+        const robotVideo = document.getElementById("robotVideo");
         const preview = document.getElementById("preview");
         const previewWrapper = document.getElementById("previewWrapper");
-        const robotVideo = document.getElementById("robotVideo");
         let cameraStream = null;
 
         function goNext() {
             app.style.transform = "translateX(-100vw)";
+            const robotBox = document.getElementById("robotThinking");
+            robotBox.classList.remove("hidden");
+            robotVideo.currentTime = 0;
+            robotVideo.muted = false;
+            robotVideo.volume = 0.5;
+            robotVideo.play().catch(() => {
+                robotVideo.muted = true;
+                robotVideo.play();
+            });
         }
 
         function goBack() {
             app.style.transform = "translateX(0)";
+            robotVideo.pause();
+            robotVideo.muted = true;
         }
 
         function toggleMenu() {
@@ -221,7 +205,6 @@
         async function openCamera() {
             document.getElementById("uploadMenu").classList.add("hidden");
             document.getElementById("cameraModal").classList.remove("hidden");
-
             cameraStream = await navigator.mediaDevices.getUserMedia({
                 video: {
                     facingMode: "environment"
@@ -231,13 +214,12 @@
         }
 
         function capturePhoto() {
-            const video = document.getElementById("cameraFeed");
-            const canvas = document.createElement("canvas");
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
-            canvas.getContext("2d").drawImage(video, 0, 0);
-
-            preview.src = canvas.toDataURL("image/png");
+            const v = document.getElementById("cameraFeed");
+            const c = document.createElement("canvas");
+            c.width = v.videoWidth;
+            c.height = v.videoHeight;
+            c.getContext("2d").drawImage(v, 0, 0);
+            preview.src = c.toDataURL("image/png");
             previewWrapper.classList.remove("hidden");
             closeCamera();
         }
@@ -256,30 +238,21 @@
         }
 
         function generate() {
-            document.getElementById("output").classList.add("hidden");
-            document.getElementById("robotThinking").classList.remove("hidden");
-            document.getElementById("loader").classList.add("hidden");
+            const robotBox = document.getElementById("robotThinking");
+            const loader = document.getElementById("loader");
+            const output = document.getElementById("output");
+
+            output.classList.add("hidden");
+            loader.classList.remove("hidden");
 
             setTimeout(() => {
-                document.getElementById("loader").classList.remove("hidden");
-            }, 1200);
-            setTimeout(() => {
-                document.getElementById("robotThinking").classList.add("hidden");
-                document.getElementById("loader").classList.add("hidden");
-                document.getElementById("output").classList.remove("hidden");
+                robotVideo.pause();
+                robotVideo.muted = true;
+                robotBox.classList.add("hidden");
+                loader.classList.add("hidden");
+                output.classList.remove("hidden");
             }, 3500);
         }
-
-        /* 🔊 ENABLE SOUND ON FIRST USER CLICK */
-        document.body.addEventListener("click", () => {
-            if (robotVideo && robotVideo.muted) {
-                robotVideo.muted = false;
-                robotVideo.volume = 0.4;
-                robotVideo.play().catch(() => {});
-            }
-        }, {
-            once: true
-        });
     </script>
 
 </body>
