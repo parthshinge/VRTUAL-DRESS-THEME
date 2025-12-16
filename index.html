@@ -13,31 +13,33 @@
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=Poppins:wght@300;400;500&display=swap"
+        rel="stylesheet">
 
     <style>
-         :root {
+        :root {
             --accent: #c9a24d;
         }
-        
+
         body {
             margin: 0;
             overflow: hidden;
             background: linear-gradient(180deg, #f9fafb, #f3f4f6);
             font-family: Poppins, sans-serif;
         }
-        
+
         .brand-font {
             font-family: Orbitron, sans-serif;
         }
-        
+
         #app {
             display: flex;
             width: 200vw;
             height: 100vh;
             transition: transform 1s ease;
         }
-        
+
         .screen {
             width: 100vw;
             height: 100vh;
@@ -45,7 +47,7 @@
             align-items: center;
             justify-content: center;
         }
-        
+
         .glass {
             background: white;
             border: 1px solid #e5e7eb;
@@ -63,7 +65,8 @@
             <div class="text-center">
                 <span class="brand-font text-4xl tracking-widest">Techspot AI Pavilion</span>
 
-                <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_tfb3estd.json" style="width:320px;height:320px" loop autoplay></lottie-player>
+                <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_tfb3estd.json"
+                    style="width:320px;height:320px" loop autoplay></lottie-player>
 
                 <h1 class="text-5xl font-bold brand-font">
                     Virtual Fashion<br>
@@ -71,8 +74,8 @@
                 </h1>
 
                 <button onclick="goNext()" class="mt-8 px-10 py-4 bg-[var(--accent)] rounded-full font-semibold">
-Start Virtual Try-On
-</button>
+                    Start Virtual Try-On
+                </button>
             </div>
         </section>
 
@@ -90,11 +93,11 @@ Start Virtual Try-On
                 <!-- FOLDER BUTTONS -->
                 <div class="flex gap-2 mb-2 text-sm">
                     <button onclick="selectInputFolder()" class="px-3 py-1 bg-blue-600 text-white rounded">
-Select INPUT Folder
-</button>
+                        Select INPUT Folder
+                    </button>
                     <button onclick="selectOutputFolder()" class="px-3 py-1 bg-green-600 text-white rounded">
-Select OUTPUT Folder
-</button>
+                        Select OUTPUT Folder
+                    </button>
                 </div>
 
                 <!-- CONTENT -->
@@ -102,20 +105,23 @@ Select OUTPUT Folder
 
                     <!-- ROBOT -->
                     <div id="robotThinking" class="hidden text-center">
-                        <video id="robotVideo" class="w-60 rounded-xl mb-2" src="img/ROBOT VIDEO1.mp4" loop playsinline muted></video>
+                        <video id="robotVideo" class="w-60 rounded-xl mb-2" src="img/ROBOT VIDEO1.mp4" loop playsinline
+                            muted></video>
                         <p class="text-sm text-gray-500">🤖 AI is preparing your virtual look…</p>
                     </div>
 
                     <!-- LOADER -->
-                    <lottie-player id="loader" src="https://assets10.lottiefiles.com/packages/lf20_usmfx6bp.json" style="width:140px;height:140px" class="hidden"></lottie-player>
+                    <lottie-player id="loader" src="https://assets10.lottiefiles.com/packages/lf20_usmfx6bp.json"
+                        style="width:140px;height:140px" class="hidden"></lottie-player>
 
                     <!-- OUTPUT -->
                     <div id="output" class="hidden text-center w-full mt-2">
                         <h3 class="brand-font mb-2">✨ Final AI Output</h3>
                         <img id="finalImage" class="mx-auto h-52 rounded-xl shadow-lg bg-black/40 object-contain">
-                        <button onclick="downloadImage()" class="mt-3 px-4 py-2 bg-[var(--accent)] rounded font-semibold">
-⬇ Download
-</button>
+                        <button onclick="downloadImage()"
+                            class="mt-3 px-4 py-2 bg-[var(--accent)] rounded font-semibold">
+                            ⬇ Download
+                        </button>
                     </div>
 
                 </div>
@@ -128,19 +134,21 @@ Select OUTPUT Folder
                     <div id="uploadMenu" class="hidden absolute bottom-14 left-0 bg-[#2a2a2e] rounded-xl w-44">
 
                         <button onclick="openUpload()" class="w-full text-left px-4 py-3 hover:bg-[#3a3a3e]">
-📁 Upload Image
-</button>
+                            📁 Upload Image
+                        </button>
                         <button onclick="openCamera()" class="w-full text-left px-4 py-3 hover:bg-[#3a3a3e]">
-📷 Open Camera
-</button>
+                            📷 Open Camera
+                        </button>
                     </div>
 
                     <div id="previewWrapper" class="relative hidden">
                         <img id="preview" class="w-10 h-10 rounded-full object-cover border">
-                        <button onclick="removePreview()" class="absolute -top-2 -right-2 bg-black text-xs w-5 h-5 rounded-full">✕</button>
+                        <button onclick="removePreview()"
+                            class="absolute -top-2 -right-2 bg-black text-xs w-5 h-5 rounded-full">✕</button>
                     </div>
 
-                    <input id="promptInput" class="flex-1 bg-transparent outline-none text-sm" placeholder="Ask AI Virtual Try-On Studio…">
+                    <input id="promptInput" class="flex-1 bg-transparent outline-none text-sm"
+                        placeholder="Ask AI Virtual Try-On Studio…">
 
                     <button onclick="generate()">➤</button>
                 </div>
@@ -169,29 +177,16 @@ Select OUTPUT Folder
         const previewWrapper = document.getElementById("previewWrapper");
 
         let cameraStream = null;
-        let inputDir = null,
-            outputDir = null;
+        let inputDir = null, outputDir = null;
         let knownOutputs = new Set();
         let watcherStarted = false;
         let latestImageBlob = null;
 
-        function goNext() {
-            app.style.transform = "translateX(-100vw)";
-        }
+        function goNext() { app.style.transform = "translateX(-100vw)"; }
+        function goBack() { app.style.transform = "translateX(0)"; robotVideo.pause(); }
 
-        function goBack() {
-            app.style.transform = "translateX(0)";
-            robotVideo.pause();
-        }
-
-        function toggleMenu() {
-            uploadMenu.classList.toggle("hidden");
-        }
-
-        function openUpload() {
-            uploadMenu.classList.add("hidden");
-            fileInput.click();
-        }
+        function toggleMenu() { uploadMenu.classList.toggle("hidden"); }
+        function openUpload() { uploadMenu.classList.add("hidden"); fileInput.click(); }
 
         async function selectInputFolder() {
             if (!inputDir) inputDir = await window.showDirectoryPicker();
@@ -209,21 +204,16 @@ Select OUTPUT Folder
             previewWrapper.classList.remove("hidden");
 
             if (inputDir) {
-                const h = await inputDir.getFileHandle(Date.now() + "_" + file.name, {
-                    create: true
-                });
+                const h = await inputDir.getFileHandle(Date.now() + "_" + file.name, { create: true });
                 const w = await h.createWritable();
-                await w.write(file);
-                await w.close();
+                await w.write(file); await w.close();
             }
         };
 
         async function openCamera() {
             uploadMenu.classList.add("hidden");
             cameraModal.classList.remove("hidden");
-            cameraStream = await navigator.mediaDevices.getUserMedia({
-                video: true
-            });
+            cameraStream = await navigator.mediaDevices.getUserMedia({ video: true });
             cameraFeed.srcObject = cameraStream;
         }
 
@@ -236,12 +226,9 @@ Select OUTPUT Folder
                 preview.src = URL.createObjectURL(blob);
                 previewWrapper.classList.remove("hidden");
                 if (inputDir) {
-                    const h = await inputDir.getFileHandle(Date.now() + "_camera.png", {
-                        create: true
-                    });
+                    const h = await inputDir.getFileHandle(Date.now() + "_camera.png", { create: true });
                     const w = await h.createWritable();
-                    await w.write(blob);
-                    await w.close();
+                    await w.write(blob); await w.close();
                 }
             });
             closeCamera();
@@ -249,34 +236,25 @@ Select OUTPUT Folder
 
         function closeCamera() {
             cameraModal.classList.add("hidden");
-            if (cameraStream) {
-                cameraStream.getTracks().forEach(t => t.stop());
-                cameraStream = null;
-            }
+            if (cameraStream) { cameraStream.getTracks().forEach(t => t.stop()); cameraStream = null; }
         }
 
-        function removePreview() {
-            previewWrapper.classList.add("hidden");
-            preview.src = "";
-        }
+        function removePreview() { previewWrapper.classList.add("hidden"); preview.src = ""; }
 
         function generate() {
-            if (!preview.src || !outputDir) {
-                alert("Upload image & select OUTPUT folder");
-                return;
-            }
+            if (!preview.src || !outputDir) { alert("Upload image & select OUTPUT folder"); return; }
             robotThinking.classList.remove("hidden");
             loader.classList.remove("hidden");
-            robotVideo.play().catch(() => {});
+            robotVideo.play().catch(() => { });
             if (!watcherStarted) startWatcher();
         }
 
         async function startWatcher() {
             watcherStarted = true;
             for await (const e of outputDir.values())
-            if (e.kind === "file") knownOutputs.add(e.name);
+                if (e.kind === "file") knownOutputs.add(e.name);
 
-            setInterval(async() => {
+            setInterval(async () => {
                 for await (const e of outputDir.values()) {
                     if (e.kind === "file" && !knownOutputs.has(e.name)) {
                         knownOutputs.add(e.name);
