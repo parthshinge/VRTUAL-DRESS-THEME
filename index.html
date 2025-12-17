@@ -6,15 +6,11 @@
     <title>Techspot AI Pavilion – Virtual Try-On</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Lottie -->
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 
-    <!-- Fonts -->
     <link
-        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=Poppins:wght@300;400;500&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700&family=Poppins:wght@300;400;500&display=swap"
         rel="stylesheet">
 
     <style>
@@ -24,12 +20,12 @@
 
         body {
             margin: 0;
-            overflow: hidden;
             background: linear-gradient(180deg, #f9fafb, #f3f4f6);
             font-family: Poppins, sans-serif;
+            overflow: hidden;
         }
 
-        .brand-font {
+        .brand {
             font-family: Orbitron, sans-serif;
         }
 
@@ -44,14 +40,15 @@
             width: 100vw;
             height: 100vh;
             display: flex;
-            align-items: center;
             justify-content: center;
+            align-items: center;
         }
 
         .glass {
-            background: white;
+            background: #fff;
+            border-radius: 20px;
             border: 1px solid #e5e7eb;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, .06);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, .08);
         }
     </style>
 </head>
@@ -60,79 +57,75 @@
 
     <div id="app">
 
-        <!-- ============ HERO ============ -->
+        <!-- HERO -->
         <section class="screen">
-            <div class="text-center">
-                <span class="brand-font text-4xl tracking-widest">Techspot AI Pavilion</span>
+            <div class="flex flex-col items-center justify-center text-center gap-6">
+                <p class="brand text-4xl tracking-widest">Techspot AI Pavilion</p>
 
                 <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_tfb3estd.json"
-                    style="width:320px;height:320px" loop autoplay></lottie-player>
+                    style="width:300px;height:300px" loop autoplay></lottie-player>
 
-                <h1 class="text-5xl font-bold brand-font">
+                <h1 class="text-5xl font-bold brand leading-tight">
                     Virtual Fashion<br>
                     <span class="text-[var(--accent)]">AI Try-On</span>
                 </h1>
 
-                <button onclick="goNext()" class="mt-8 px-10 py-4 bg-[var(--accent)] rounded-full font-semibold">
+                <button onclick="goNext()" class="mt-4 px-10 py-4 rounded-full font-semibold bg-[var(--accent)]">
                     Start Virtual Try-On
                 </button>
             </div>
         </section>
 
-        <!-- ============ TRY ON ============ -->
+        <!-- TRY ON -->
         <section class="screen">
-            <div class="glass w-[92%] max-w-6xl h-[72vh] rounded-2xl p-5 flex flex-col">
+            <div class="glass w-[92%] max-w-6xl h-[72vh] p-5 flex flex-col">
 
                 <!-- HEADER -->
-                <div class="grid grid-cols-3 mb-2 items-center">
-                    <button onclick="goBack()" class="text-sm underline">← Back</button>
-                    <div class="text-center brand-font font-bold">Techspot AI Pavilion</div>
+                <div class="grid grid-cols-3 items-center mb-3">
+                    <button onclick="goBack()" class="underline text-sm">← Back</button>
+                    <div class="text-center brand font-bold">Techspot AI Pavilion</div>
                     <div></div>
                 </div>
 
-                <!-- FOLDER BUTTONS -->
-                <div class="flex gap-2 mb-2 text-sm">
-                    <button onclick="selectInputFolder()" class="px-3 py-1 bg-blue-600 text-white rounded">
+                <!-- FOLDERS -->
+                <div class="flex gap-2 mb-3 text-sm">
+                    <button onclick="selectInputFolder()" class="px-4 py-2 bg-blue-600 text-white rounded">
                         Select INPUT Folder
                     </button>
-                    <button onclick="selectOutputFolder()" class="px-3 py-1 bg-green-600 text-white rounded">
+                    <button onclick="selectOutputFolder()" class="px-4 py-2 bg-green-600 text-white rounded">
                         Select OUTPUT Folder
                     </button>
                 </div>
 
                 <!-- CONTENT -->
-                <div class="flex flex-col items-center justify-center grow">
+                <div class="flex-1 flex items-center justify-center">
 
                     <!-- ROBOT -->
                     <div id="robotThinking" class="hidden text-center">
-                        <video id="robotVideo" class="w-60 rounded-xl mb-2" src="img/ROBOT VIDEO1.mp4" loop playsinline
-                            muted></video>
-                        <p class="text-sm text-gray-500">🤖 AI is preparing your virtual look…</p>
+                        <video id="robotVideo" class="w-56 mx-auto rounded-xl mb-3" src="img/ROBOT VIDEO1.mp4" loop
+                            muted playsinline></video>
+                        <p class="text-sm text-gray-500">AI is preparing your virtual look…</p>
                     </div>
 
-                    <!-- LOADER -->
-                    <lottie-player id="loader" src="https://assets10.lottiefiles.com/packages/lf20_usmfx6bp.json"
-                        style="width:140px;height:140px" class="hidden"></lottie-player>
-
                     <!-- OUTPUT -->
-                    <div id="output" class="hidden text-center w-full mt-2">
-                        <h3 class="brand-font mb-2">✨ Final AI Output</h3>
-                        <img id="finalImage" class="mx-auto h-52 rounded-xl shadow-lg bg-black/40 object-contain">
+                    <div id="output" class="hidden text-center w-full">
+                        <h3 class="brand mb-4 text-xl">✨ Final AI Output</h3>
+
+                        <img id="finalImage" class="mx-auto h-60 rounded-xl shadow-lg object-contain bg-gray-100">
+
                         <button onclick="downloadImage()"
-                            class="mt-3 px-4 py-2 bg-[var(--accent)] rounded font-semibold">
+                            class="mt-6 px-6 py-2 bg-[var(--accent)] rounded font-semibold">
                             ⬇ Download
                         </button>
                     </div>
-
                 </div>
 
-                <!-- INPUT BAR -->
-                <div class="bg-[#1c1c1e] p-3 rounded-2xl flex gap-3 items-center text-white relative">
+                <!-- INPUT BAR (spacing fixed) -->
+                <div class="mt-6 bg-[#1c1c1e] p-3 rounded-2xl flex gap-3 items-center text-white relative">
 
                     <button onclick="toggleMenu()" class="text-xl">+</button>
 
                     <div id="uploadMenu" class="hidden absolute bottom-14 left-0 bg-[#2a2a2e] rounded-xl w-44">
-
                         <button onclick="openUpload()" class="w-full text-left px-4 py-3 hover:bg-[#3a3a3e]">
                             📁 Upload Image
                         </button>
@@ -157,17 +150,6 @@
         </section>
     </div>
 
-    <!-- CAMERA -->
-    <div id="cameraModal" class="hidden fixed inset-0 bg-black/70 flex items-center justify-center z-50">
-        <div class="bg-black p-4 rounded-xl">
-            <video id="cameraFeed" autoplay playsinline class="w-72 rounded"></video>
-            <div class="flex justify-between mt-3">
-                <button onclick="capturePhoto()" class="bg-[var(--accent)] px-4 py-2 rounded">Capture</button>
-                <button onclick="closeCamera()" class="bg-gray-700 px-4 py-2 rounded">Close</button>
-            </div>
-        </div>
-    </div>
-
     <input type="file" id="fileInput" accept="image/*" hidden>
 
     <script>
@@ -176,104 +158,75 @@
         const preview = document.getElementById("preview");
         const previewWrapper = document.getElementById("previewWrapper");
 
-        let cameraStream = null;
         let inputDir = null, outputDir = null;
-        let knownOutputs = new Set();
-        let watcherStarted = false;
-        let latestImageBlob = null;
+        let known = new Set(), watcher = false, latest = null;
 
+        /* ---------- NAV ---------- */
         function goNext() { app.style.transform = "translateX(-100vw)"; }
         function goBack() { app.style.transform = "translateX(0)"; robotVideo.pause(); }
 
+        /* ---------- MENU ---------- */
         function toggleMenu() { uploadMenu.classList.toggle("hidden"); }
         function openUpload() { uploadMenu.classList.add("hidden"); fileInput.click(); }
 
-        async function selectInputFolder() {
-            if (!inputDir) inputDir = await window.showDirectoryPicker();
-            alert("INPUT folder selected");
-        }
-        async function selectOutputFolder() {
-            if (!outputDir) outputDir = await window.showDirectoryPicker();
-            alert("OUTPUT folder selected");
+        /* ---------- FOLDERS ---------- */
+        async function selectInputFolder() { inputDir = await window.showDirectoryPicker(); }
+        async function selectOutputFolder() { outputDir = await window.showDirectoryPicker(); }
+
+        /* ---------- SAVE TO INPUT ---------- */
+        async function saveToInput(blob, name) {
+            if (!inputDir) return;
+            const h = await inputDir.getFileHandle(name, { create: true });
+            const w = await h.createWritable();
+            await w.write(blob);
+            await w.close();
         }
 
+        /* ---------- UPLOAD ---------- */
         fileInput.onchange = async e => {
-            const file = e.target.files[0];
-            if (!file) return;
-            preview.src = URL.createObjectURL(file);
+            const f = e.target.files[0];
+            if (!f) return;
+            preview.src = URL.createObjectURL(f);
             previewWrapper.classList.remove("hidden");
-
-            if (inputDir) {
-                const h = await inputDir.getFileHandle(Date.now() + "_" + file.name, { create: true });
-                const w = await h.createWritable();
-                await w.write(file); await w.close();
-            }
+            await saveToInput(f, Date.now() + "_" + f.name);
         };
 
-        async function openCamera() {
-            uploadMenu.classList.add("hidden");
-            cameraModal.classList.remove("hidden");
-            cameraStream = await navigator.mediaDevices.getUserMedia({ video: true });
-            cameraFeed.srcObject = cameraStream;
-        }
-
-        function capturePhoto() {
-            const c = document.createElement("canvas");
-            c.width = cameraFeed.videoWidth;
-            c.height = cameraFeed.videoHeight;
-            c.getContext("2d").drawImage(cameraFeed, 0, 0);
-            c.toBlob(async blob => {
-                preview.src = URL.createObjectURL(blob);
-                previewWrapper.classList.remove("hidden");
-                if (inputDir) {
-                    const h = await inputDir.getFileHandle(Date.now() + "_camera.png", { create: true });
-                    const w = await h.createWritable();
-                    await w.write(blob); await w.close();
-                }
-            });
-            closeCamera();
-        }
-
-        function closeCamera() {
-            cameraModal.classList.add("hidden");
-            if (cameraStream) { cameraStream.getTracks().forEach(t => t.stop()); cameraStream = null; }
-        }
-
-        function removePreview() { previewWrapper.classList.add("hidden"); preview.src = ""; }
-
+        /* ---------- GENERATE ---------- */
         function generate() {
-            if (!preview.src || !outputDir) { alert("Upload image & select OUTPUT folder"); return; }
+            if (!preview.src || !outputDir) {
+                alert("Upload image & select OUTPUT folder");
+                return;
+            }
             robotThinking.classList.remove("hidden");
-            loader.classList.remove("hidden");
             robotVideo.play().catch(() => { });
-            if (!watcherStarted) startWatcher();
+            if (!watcher) watch();
         }
 
-        async function startWatcher() {
-            watcherStarted = true;
+        /* ---------- WATCH OUTPUT ---------- */
+        async function watch() {
+            watcher = true;
             for await (const e of outputDir.values())
-                if (e.kind === "file") knownOutputs.add(e.name);
+                if (e.kind === "file") known.add(e.name);
 
             setInterval(async () => {
                 for await (const e of outputDir.values()) {
-                    if (e.kind === "file" && !knownOutputs.has(e.name)) {
-                        knownOutputs.add(e.name);
-                        const f = await e.getFile();
-                        latestImageBlob = f;
-                        finalImage.src = URL.createObjectURL(f);
+                    if (e.kind === "file" && !known.has(e.name)) {
+                        known.add(e.name);
+                        latest = await e.getFile();
+                        finalImage.src = URL.createObjectURL(latest);
                         robotThinking.classList.add("hidden");
-                        loader.classList.add("hidden");
                         output.classList.remove("hidden");
                         robotVideo.pause();
                     }
                 }
-            }, 3000);
+            }, 2500);
         }
 
+        /* ---------- DOWNLOAD ---------- */
         function downloadImage() {
-            if (!latestImageBlob) return;
+            if (!latest) return;
             const a = document.createElement("a");
-            a.href = URL.createObjectURL(latestImageBlob);
+            a.href = URL.createObjectURL(latest);
             a.download = "AI_TryOn_Output.png";
             a.click();
         }
