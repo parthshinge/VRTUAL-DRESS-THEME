@@ -20,7 +20,7 @@
 
         body {
             margin: 0;
-            background: linear-gradient(180deg, #f9fafb, #f3f4f6);
+            background: linear-gradient(135deg, #667eea, #764ba2);
             font-family: Poppins, sans-serif;
             overflow: hidden;
         }
@@ -46,114 +46,124 @@
 
         .glass {
             background: #fff;
-            border-radius: 20px;
-            border: 1px solid #e5e7eb;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, .08);
+            border-radius: 24px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, .15);
+        }
+
+        .fixed-logo {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 9999;
         }
     </style>
 </head>
 
 <body>
 
+    <img src="img/techspot-logo.jpeg" class="fixed-logo w-20 md:w-32 rounded-lg shadow-lg">
+
     <div id="app">
 
-        <!-- ================= HERO PAGE ================= -->
-        <section class="screen relative">
-            <div class="flex flex-col items-center justify-center text-center gap-6">
+        <!-- HERO PAGE -->
+        <section class="screen text-white text-center">
+            <div class="space-y-6">
+                <p class="brand text-3xl tracking-widest">Techspot AI Pavilion</p>
 
-                <!-- COMPANY LOGO -->
-                <img src="img/techspot-logo.jpeg" alt="TechSpot Infotech Logo"
-                    class="absolute top-4 left-4 w-20 md:top-8 md:left-8 md:w-32 h-auto">
-
-                <p class="brand text-xl md:text-3xl tracking-widest">
-                    Techspot AI Pavilion
-                </p>
-
-                <!-- LOTTIE CENTER -->
                 <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_tfb3estd.json"
-                    class="w-48 h-48 md:w-[280px] md:h-[280px]" loop autoplay>
+                    class="w-64 h-64 mx-auto" loop autoplay>
                 </lottie-player>
 
-                <h1 class="text-3xl md:text-5xl font-bold brand leading-tight">
+                <h1 class="text-5xl brand font-bold">
                     Virtual Fashion<br>
                     <span class="text-[var(--accent)]">AI Try-On</span>
                 </h1>
 
-                <button onclick="goNext()" class="mt-4 px-10 py-4 rounded-full font-semibold bg-[var(--accent)]">
-                    Start Virtual Try-On
+                <button type="button" onclick="goNext()"
+                    class="px-12 py-4 bg-[var(--accent)] rounded-full font-semibold">
+                    Start Virtual Try-On →
                 </button>
-
             </div>
         </section>
 
-        <!-- ================= TRY ON PAGE ================= -->
-        <section class="screen">
-            <div
-                class="glass w-[95%] md:w-[92%] max-w-6xl h-[90dvh] md:h-[72vh] p-3 md:p-5 flex flex-col overflow-y-auto md:overflow-hidden">
+        <!-- TRY ON PAGE -->
+        <section class="screen p-4">
+            <div class="glass w-full max-w-6xl h-[90dvh] p-6 flex flex-col">
 
-                <div class="grid grid-cols-3 items-center mb-3 text-center">
-                    <button onclick="goBack()" class="underline text-xs md:text-sm text-left">← Back</button>
-                    <div class="text-center brand font-bold text-sm md:text-base whitespace-nowrap">Techspot AI Pavilion
-                    </div>
+                <!-- HEADER -->
+                <div class="flex justify-between mb-4">
+                    <button type="button" onclick="goBack()" class="underline">← Back</button>
+                    <div class="brand font-bold">Techspot AI Pavilion</div>
+                    <div></div>
                 </div>
 
                 <!-- FOLDERS -->
-                <div class="flex flex-wrap justify-center md:justify-start gap-2 mb-3 text-xs md:text-sm">
-                    <button onclick="selectInputFolder()" class="px-3 py-2 bg-blue-600 text-white rounded">
-                        Select INPUT Folder
+                <div class="flex gap-3 mb-4">
+                    <button type="button" onclick="selectInputFolder()"
+                        class="px-4 py-2 bg-blue-600 text-white rounded">
+                        📁 INPUT Folder
                     </button>
-                    <button onclick="selectOutputFolder()" class="px-3 py-2 bg-green-600 text-white rounded">
-                        Select OUTPUT Folder
+
+                    <button type="button" onclick="selectOutputFolder()"
+                        class="px-4 py-2 bg-green-600 text-white rounded">
+                        📁 OUTPUT Folder
                     </button>
                 </div>
 
                 <!-- CONTENT -->
                 <div class="flex-1 flex items-center justify-center">
 
-                    <!-- ROBOT -->
-                    <div id="robotThinking" class="hidden text-center w-full">
-                        <video id="robotVideo" class="w-40 md:w-56 mx-auto rounded-xl mb-3" src="img/ROBOT VIDEO1.mp4"
-                            loop muted playsinline></video>
-                        <p class="text-xs md:text-sm text-gray-500">AI is preparing your virtual look…</p>
+                    <div id="initialState" class="text-center">
+                        <p class="text-gray-600 mb-4">Upload or capture image</p>
+
+                        <button type="button" onclick="openUpload(event)"
+                            class="px-6 py-3 bg-blue-500 text-white rounded-xl mr-2">
+                            Upload
+                        </button>
+
+                        <button type="button" onclick="openCamera(event)"
+                            class="px-6 py-3 bg-pink-500 text-white rounded-xl">
+                            Camera
+                        </button>
                     </div>
 
-                    <!-- OUTPUT -->
-                    <!-- OUTPUT -->
-                    <div id="output" class="hidden text-center w-full pt-2">
-                        <h3 class="brand mb-2 md:mb-4 text-lg md:text-xl">✨ Final AI Output</h3>
-                        <img id="finalImage"
-                            class="mx-auto h-48 md:h-60 rounded-xl shadow-lg object-contain bg-gray-100">
+                    <div id="robotThinking" class="hidden text-center">
+                        <video id="robotVideo" src="img/ROBOT VIDEO1.mp4" class="w-56 rounded-xl mx-auto mb-3" loop
+                            muted></video>
+                        <p>AI is processing…</p>
+                    </div>
 
-                        <button onclick="downloadImage()"
-                            class="mt-6 px-6 py-2 bg-[var(--accent)] rounded font-semibold">
-                            ⬇ Download
+                    <div id="output" class="hidden text-center">
+                        <h3 class="brand text-xl mb-3">✨ Final Output</h3>
+                        <img id="finalImage" class="mx-auto max-h-80 rounded-xl shadow-lg">
+                        <button type="button" onclick="downloadImage()"
+                            class="mt-4 px-6 py-2 bg-[var(--accent)] rounded">
+                            Download
                         </button>
                     </div>
 
                 </div>
 
                 <!-- INPUT BAR -->
-                <div
-                    class="mt-auto md:mt-6 bg-[#1c1c1e] p-2 md:p-3 rounded-xl md:rounded-2xl flex gap-2 md:gap-3 items-center text-white relative shrink-0">
+                <div class="mt-4 bg-black p-3 rounded-xl flex items-center gap-3 text-white relative">
 
-                    <button onclick="toggleMenu()" class="text-xl">+</button>
+                    <button type="button" onclick="toggleMenu(event)">＋</button>
 
-                    <div id="uploadMenu" class="hidden absolute bottom-14 left-0 bg-[#2a2a2e] rounded-xl w-44">
-                        <button onclick="openUpload()" class="w-full text-left px-4 py-3 hover:bg-[#3a3a3e]">
-                            📁 Upload Image
-                        </button>
-                        <button onclick="openCamera()" class="w-full text-left px-4 py-3 hover:bg-[#3a3a3e]">
-                            📷 Open Camera
-                        </button>
+                    <div id="uploadMenu" class="hidden absolute bottom-14 left-0 bg-gray-800 rounded-xl w-44">
+                        <button type="button" onclick="openUpload(event)" class="block w-full px-4 py-3">📁
+                            Upload</button>
+                        <button type="button" onclick="openCamera(event)" class="block w-full px-4 py-3">📷
+                            Camera</button>
                     </div>
 
-                    <!-- MULTIPLE PREVIEW WITH X -->
                     <div id="previewWrapper" class="flex gap-2"></div>
 
-                    <input class="flex-1 bg-transparent outline-none text-sm"
-                        placeholder="Ask AI Virtual Try-On Studio…">
+                    <input onkeydown="if(event.key==='Enter'){event.preventDefault();generate();}"
+                        class="flex-1 bg-transparent outline-none" placeholder="Ask AI Virtual Try-On Studio…">
 
-                    <button onclick="generate()">➤</button>
+                    <button type="button" onclick="generate()" class="w-10 h-10 bg-[var(--accent)] rounded">
+                        ➤
+                    </button>
                 </div>
 
             </div>
@@ -163,40 +173,62 @@
     <input type="file" id="fileInput" accept="image/*" hidden>
 
     <!-- CAMERA MODAL -->
-    <div id="cameraModal" class="hidden fixed inset-0 bg-black/70 flex items-center justify-center z-50">
-        <div class="bg-white p-4 rounded-xl text-center">
-            <video id="camera" autoplay playsinline class="w-64 rounded mb-3"></video>
-            <button onclick="capturePhoto()" class="px-6 py-2 bg-[var(--accent)] rounded font-semibold">
-                📸 Capture
+    <div id="cameraModal" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center z-50">
+        <div class="bg-white p-6 rounded-xl text-center">
+            <video id="camera" autoplay playsinline class="w-64 rounded mb-4"></video>
+            <button type="button" onclick="capturePhoto(event)" class="px-6 py-2 bg-[var(--accent)] rounded">
+                Capture
             </button>
         </div>
     </div>
 
-    <!-- ================= SCRIPT ================= -->
     <script>
         const app = document.getElementById("app");
-        const robotVideo = document.getElementById("robotVideo");
         const previewWrapper = document.getElementById("previewWrapper");
+        const robotVideo = document.getElementById("robotVideo");
         const cameraModal = document.getElementById("cameraModal");
         const camera = document.getElementById("camera");
+        const initialState = document.getElementById("initialState");
+        const robotThinking = document.getElementById("robotThinking");
+        const output = document.getElementById("output");
+        const fixedLogo = document.querySelector(".fixed-logo");
 
         let inputDir = null, outputDir = null;
         let known = new Set(), watcher = false, latest = null;
         let stream = null;
 
         /* NAV */
-        function goNext() { app.style.transform = "translateX(-100vw)"; }
-        function goBack() { app.style.transform = "translateX(0)"; robotVideo.pause(); }
+        function goNext() {
+            app.style.transform = "translateX(-100vw)";
+            fixedLogo.classList.add("hidden");
+        }
+        function goBack() {
+            app.style.transform = "translateX(0)";
+            reset();
+            fixedLogo.classList.remove("hidden");
+        }
 
         /* MENU */
-        function toggleMenu() { uploadMenu.classList.toggle("hidden"); }
-        function openUpload() { uploadMenu.classList.add("hidden"); fileInput.click(); }
+        function toggleMenu(e) {
+            e.preventDefault(); e.stopPropagation();
+            uploadMenu.classList.toggle("hidden");
+        }
+
+        function openUpload(e) {
+            e.preventDefault(); e.stopPropagation();
+            uploadMenu.classList.add("hidden");
+            fileInput.click();
+        }
 
         /* FOLDERS */
-        async function selectInputFolder() { inputDir = await window.showDirectoryPicker(); }
-        async function selectOutputFolder() { outputDir = await window.showDirectoryPicker(); }
+        async function selectInputFolder() {
+            inputDir = await window.showDirectoryPicker();
+        }
+        async function selectOutputFolder() {
+            outputDir = await window.showDirectoryPicker();
+        }
 
-        /* SAVE */
+        /* SAVE INPUT */
         async function saveToInput(blob, prefix) {
             if (!inputDir) return;
             const h = await inputDir.getFileHandle(`${prefix}_${Date.now()}.png`, { create: true });
@@ -204,27 +236,36 @@
             await w.write(blob); await w.close();
         }
 
-        /* PREVIEW WITH X */
+        /* PREVIEW */
         function addPreview(url) {
-            const wrap = document.createElement("div");
-            wrap.className = "relative";
+            initialState.classList.add("hidden");
+
+            const wrapper = document.createElement("div");
+            wrapper.className = "relative shrink-0 group";
 
             const img = document.createElement("img");
             img.src = url;
-            img.className = "w-10 h-10 rounded-full object-cover border";
+            img.className = "w-10 h-10 rounded-full object-cover border border-gray-600";
 
             const btn = document.createElement("button");
-            btn.innerText = "✕";
-            btn.className = "absolute -top-2 -right-2 bg-black text-white text-xs w-5 h-5 rounded-full";
-            btn.onclick = () => wrap.remove();
+            btn.innerHTML = "×";
+            btn.className = "absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-xs hover:bg-red-600 shadow-sm";
+            btn.onclick = (e) => {
+                e.stopPropagation(); // Prevent triggering other clicks if any
+                wrapper.remove();
+                if (previewWrapper.children.length === 0) {
+                    initialState.classList.remove("hidden");
+                }
+            };
 
-            wrap.appendChild(img);
-            wrap.appendChild(btn);
-            previewWrapper.appendChild(wrap);
+            wrapper.appendChild(img);
+            wrapper.appendChild(btn);
+            previewWrapper.appendChild(wrapper);
         }
 
-        /* UPLOAD */
+        /* UPLOAD FIXED */
         fileInput.onchange = async e => {
+            e.preventDefault(); e.stopPropagation();
             const f = e.target.files[0];
             if (!f) return;
             addPreview(URL.createObjectURL(f));
@@ -232,20 +273,21 @@
             fileInput.value = "";
         };
 
-        /* CAMERA */
-        async function openCamera() {
+        /* CAMERA FIXED */
+        async function openCamera(e) {
+            e.preventDefault(); e.stopPropagation();
             uploadMenu.classList.add("hidden");
             cameraModal.classList.remove("hidden");
             stream = await navigator.mediaDevices.getUserMedia({ video: true });
             camera.srcObject = stream;
         }
 
-        function capturePhoto() {
-            const canvas = document.createElement("canvas");
-            canvas.width = camera.videoWidth;
-            canvas.height = camera.videoHeight;
-            canvas.getContext("2d").drawImage(camera, 0, 0);
-            canvas.toBlob(async blob => {
+        function capturePhoto(e) {
+            e.preventDefault(); e.stopPropagation();
+            const c = document.createElement("canvas");
+            c.width = camera.videoWidth; c.height = camera.videoHeight;
+            c.getContext("2d").drawImage(camera, 0, 0);
+            c.toBlob(async blob => {
                 addPreview(URL.createObjectURL(blob));
                 await saveToInput(blob, "camera");
                 stream.getTracks().forEach(t => t.stop());
@@ -255,7 +297,7 @@
 
         /* GENERATE */
         function generate() {
-            if (!outputDir) return;
+            if (!outputDir) { alert("Select OUTPUT folder"); return; }
             robotThinking.classList.remove("hidden");
             robotVideo.play();
             if (!watcher) watch();
@@ -281,13 +323,17 @@
             }, 2500);
         }
 
-        /* DOWNLOAD */
         function downloadImage() {
-            if (!latest) return;
             const a = document.createElement("a");
             a.href = URL.createObjectURL(latest);
-            a.download = "AI_TryOn_Output.png";
+            a.download = "AI_TryOn.png";
             a.click();
+        }
+
+        function reset() {
+            output.classList.add("hidden");
+            robotThinking.classList.add("hidden");
+            initialState.classList.remove("hidden");
         }
     </script>
 
